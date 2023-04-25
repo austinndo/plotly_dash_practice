@@ -1,18 +1,18 @@
-# Importing packages
+# Import packages
 from dash import Dash, html, dash_table, dcc, callback, Output, Input
 import pandas as pd
 import plotly.express as px
 
-# Adding data
+# Incorporate data
 df = pd.read_csv(
     'https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv')
 
-# Initialize app
+# Initialize the app
 app = Dash(__name__)
 
 # App layout
 app.layout = html.Div([
-    html.Div(children='My first App with Data, Graphs, and Controls'),
+    html.Div(children='My First App with Data, Graph, and Controls'),
     html.Hr(),
     dcc.RadioItems(options=['pop', 'lifeExp', 'gdpPercap'],
                    value='lifeExp', id='controls-and-radio-item'),
@@ -20,7 +20,7 @@ app.layout = html.Div([
     dcc.Graph(figure={}, id='controls-and-graph')
 ])
 
-# Adding controls to build interaction
+# Add controls to build the interaction
 
 
 @callback(
@@ -28,10 +28,10 @@ app.layout = html.Div([
     Input(component_id='controls-and-radio-item', component_property='value')
 )
 def update_graph(col_chosen):
-    fig = px.histogram(df, x='continent', y='col_chosen', histfunc='avg')
+    fig = px.histogram(df, x='continent', y=col_chosen, histfunc='avg')
     return fig
 
 
-# To run the app:
+# Run the app
 if __name__ == '__main__':
     app.run_server(debug=True)
